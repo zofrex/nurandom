@@ -17,7 +17,9 @@ uint32_t random_int(uint32_t upper_bound) {
   int iterations = 0;
 
   while(1) {
-    read(urandom, &random, sizeof random);
+    if(read(urandom, &random, sizeof random) < sizeof random) {
+      abort();
+    }
     if (random > minimum) {
       break;
     }
